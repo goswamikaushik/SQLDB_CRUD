@@ -3,6 +3,10 @@ const mysql = require("mysql2");
 const express = require("express");
 const app = express();
 const port = "8080";
+const path = require("path");
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -41,7 +45,7 @@ app.get("/", (req, res) => {
         try {
             if (err) throw err;
             console.log(result[0]["COUNT(*)"]); //OR console.log(result[0]["COUNT(*)"])
-            res.send(result[0]["COUNT(*)"].toString());
+            res.render("home.ejs");
             
         } catch (err) {
             console.log(err);
