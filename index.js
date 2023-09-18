@@ -33,36 +33,29 @@ let getRandomUser = () => {
 
 
 
-connection.end();
 
 app.get("/", (req, res) => {
-    let q = "SELECT COUNT(*) FROM user";
-
+    let q = `SELECT COUNT(*) FROM user`;
+    
     try {
         connection.query(q, (err, result) => {
             if (err) throw err;
             console.log(result);
             res.send(result);
         });
-  
-       } catch (err) {
-      console.log(err);
+        
+    } catch (err) {
+        console.log(err);
       res.send("some error in data base");
     };  
 });
+
+
 
 app.listen(port, () => {
     console.log("server is running");
 });
 
+// connection.end();
 
 
- try {
-      connection.query(q, [data], (err, result) => {
-          if (err) throw err;
-          console.log(result);
-      });
-
-     } catch (err) {
-    console.log(err);
-  };
