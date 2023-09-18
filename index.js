@@ -37,17 +37,17 @@ let getRandomUser = () => {
 app.get("/", (req, res) => {
     let q = `SELECT COUNT(*) FROM user`;
     
-    try {
-        connection.query(q, (err, result) => {
+    connection.query(q, (err, result) => {
+        try {
             if (err) throw err;
-            console.log(result);
-            res.send(result);
-        });
-        
-    } catch (err) {
-        console.log(err);
-      res.send("some error in data base");
-    };  
+            console.log(result[0]["COUNT(*)"]); //OR console.log(result[0]["COUNT(*)"])
+            res.send(result[0]["COUNT(*)"].toString());
+            
+        } catch (err) {
+            console.log(err);
+            res.send("some error in data base");
+        }
+    });
 });
 
 
