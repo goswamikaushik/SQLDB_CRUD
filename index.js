@@ -54,6 +54,23 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/user", (req, res) => {
+    let q = `SELECT * FROM user`;
+    connection.query(q, (err, users) => {
+        try{
+            if(err) throw err;
+            //let count = result;
+            // console.log(count);
+            res.render("user.ejs", {users});
+        } catch(err) {
+            console.log(err);
+            res.send ("some error in data base");
+        }
+    });
+
+    
+   
+})
 
 
 app.listen(port, () => {
