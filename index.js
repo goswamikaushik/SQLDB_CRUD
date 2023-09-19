@@ -54,6 +54,7 @@ app.get("/", (req, res) => {
     });
 });
 
+//to print data
 app.get("/user", (req, res) => {
     let q = `SELECT * FROM user`;
     connection.query(q, (err, users) => {
@@ -66,12 +67,14 @@ app.get("/user", (req, res) => {
             console.log(err);
             res.send ("some error in data base");
         }
-    });
-
-    
-   
+    });  
 })
 
+
+//Edit Route
+app.get("/user/:id/edit", (req, res) => {
+     res.render("edit.ejs");
+});
 
 app.listen(port, () => {
     console.log("server is running");
