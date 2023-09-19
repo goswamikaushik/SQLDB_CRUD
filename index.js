@@ -77,7 +77,7 @@ app.get("/user", (req, res) => {
 //Edit Route
 app.get("/user/:id/edit", (req, res) => {
     let { id } = req.params;
-    console.log(id);
+  
     let q = `SELECT * FROM user WHERE id = '${id}'`;
 
     connection.query(q, (err, result) => {
@@ -96,7 +96,31 @@ app.get("/user/:id/edit", (req, res) => {
 
 //update route
 app.patch("/user/:id", (req, res) => {
-    res.send("updated");
+    let { id } = req.params;
+    let q = `SELECT * FROM user WHERE id = '${id}'`;
+    let {password : formPass , username : newUsername} = req.body;
+
+    connection.query(q, (err, result) => {
+        try {
+            if (err) throw err;
+            let user = result[0];
+            if(formPass != user.password){
+                res.send("entered password is WRONG!!!");
+            }
+            else{
+                let q2 = `UPDATE user SET username = '${newUsername}' WHERE id ='${id}'`;
+                connection.query(q2, (err, result) => {
+                    if(err) throw err
+                    res.redirect("/user");
+                })
+
+            }
+            
+        } catch (err) {
+            console.log(err);
+            res.send("some error in data base");
+        }
+    });
 });
 
 app.listen(port, () => {
