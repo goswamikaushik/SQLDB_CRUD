@@ -6,6 +6,11 @@
     <title>Edit Username</title>
 </head>
 <body>
-    <h2>You are about to edit username </h2>
+    <h2>You are about to edit this user : <%= user.email%> </h2>
+    <form method="post" action="/user/<%=user.id%>?_method=PATCH">
+        <textarea name="username"> <%= user.username%></textarea>
+        <input type="password" name="password"  placeholder="Enter your password"/>
+        <button type="submit">Edit</button>
+    </form>
 </body>
 </html>
