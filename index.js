@@ -5,8 +5,8 @@ const app = express();
 const port = "8080";
 const path = require("path");
 
-app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
+app.set("view engine", "ejs");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -40,13 +40,13 @@ let getRandomUser = () => {
 
 app.get("/", (req, res) => {
     let q = `SELECT COUNT(*) FROM user`;
-    
+
     connection.query(q, (err, result) => {
         try {
             if (err) throw err;
-            console.log(result[0]["COUNT(*)"]); //OR console.log(result[0]["COUNT(*)"])
-            res.render("home.ejs");
-            
+            let count = result[0]["COUNT(*)"]; //OR console.log(result[0]["COUNT(*)"])
+            res.render("home.ejs",{count});
+
         } catch (err) {
             console.log(err);
             res.send("some error in data base");
